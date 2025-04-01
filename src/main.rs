@@ -1,4 +1,5 @@
 #![allow(static_mut_refs)]
+#![feature(inherent_str_constructors)]
 
 use std::path::PathBuf;
 

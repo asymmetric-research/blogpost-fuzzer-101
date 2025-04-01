@@ -81,7 +81,6 @@ dependencies = [
 ]
 
 [[package]]
-
 name = "bindgen"
 version = "0.71.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -127,7 +126,6 @@ dependencies = [
  "libafl",
  "libafl_bolts",
  "libafl_targets",
-
  "serde_json",
 ]
 
@@ -173,7 +171,6 @@ dependencies = [
 ]
 
 [[package]]
-
 name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -197,7 +194,6 @@ dependencies = [
 ]
 
 [[package]]
-
 name = "cobs"
 version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -285,7 +281,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4f211af61d8efdd104f96e57adf5e426ba1bc3ed7a4ead616e15e5881fd79c4d"
 
 [[package]]
-
 name = "darling"
 version = "0.20.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -336,7 +331,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7454e41ff9012c00d53cf7f475c5e3afa3b91b7c90568495495e8d9bf47a1055"
 
 [[package]]
-
 name = "either"
 version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -387,7 +381,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "27cea6e7f512d43b098939ff4d5a5d6fe3db07971e1d05176fe26c642d33f5b8"
 dependencies = [
  "getrandom",
-
  "siphasher",
  "wide",
 ]
@@ -416,7 +409,6 @@ dependencies = [
 
 [[package]]
 name = "getrandom"
-
 version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "73fea8450eea4bac3940448fb7ae50d91f034f941199fcd9d909a5a07aa455f0"
@@ -440,7 +432,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a8d1add55171497b4705a648c6b583acafb01d58050a51727785f0b2c8e0a2b2"
 
 [[package]]
-
 name = "hashbrown"
 version = "0.14.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -529,7 +520,6 @@ dependencies = [
 ]
 
 [[package]]
-
 name = "json"
 version = "0.12.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -540,7 +530,6 @@ name = "libafl"
 version = "0.15.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9794a343d5fa693c28cd23af59043212d70036fb5ebc0afa179b625f95f4078e"
-
 dependencies = [
  "ahash",
  "arbitrary-int",
@@ -573,7 +562,6 @@ dependencies = [
  "uuid",
  "wait-timeout",
  "winapi",
-
  "windows 0.59.0",
 ]
 
@@ -582,7 +570,6 @@ name = "libafl_bolts"
 version = "0.15.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "51e69630477e025040c68537d88c7263a8f00c5d7ba3eae1d3cf0d992ecc1d1e"
-
 dependencies = [
  "ahash",
  "backtrace",
@@ -598,7 +585,6 @@ dependencies = [
  "nix",
  "num_enum",
  "once_cell",
-
  "postcard",
  "rand_core",
  "rustversion",
@@ -610,7 +596,6 @@ dependencies = [
  "uds",
  "uuid",
  "winapi",
-
  "windows 0.59.0",
  "windows-result",
  "xxhash-rust",
@@ -621,7 +606,6 @@ name = "libafl_derive"
 version = "0.15.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "111b0e2954ff0bac47eee7c68b0f27e9cd3f920ce5c05cecd3fe0b3ae63d213c"
-
 dependencies = [
  "proc-macro2",
  "quote",
@@ -648,7 +632,6 @@ dependencies = [
 ]
 
 [[package]]
-
 name = "libc"
 version = "0.2.171"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -665,7 +648,6 @@ dependencies = [
 ]
 
 [[package]]
-
 name = "libm"
 version = "0.2.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -743,7 +725,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "68354c5c6bd36d73ff3feceb05efa59b6acb7626617f4962be322a825e61f79a"
 
 [[package]]
-
 name = "miniz_oxide"
 version = "0.8.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -788,7 +769,6 @@ dependencies = [
 ]
 
 [[package]]
-
 name = "num-traits"
 version = "0.2.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -884,7 +864,6 @@ dependencies = [
 ]
 
 [[package]]
-
 name = "proc-macro2"
 version = "1.0.94"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -921,7 +900,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f60fcc7d6849342eff22c4350c8b9a989ee8ceabc4b481253e8946b9fe83d684"
 
 [[package]]
-
 name = "ratatui"
 version = "0.29.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -993,7 +971,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "357703d41365b4b27c590e3ed91eabb1b663f07c4c084095e60cbed4362dff0d"
 
 [[package]]
-
 name = "rustix"
 version = "0.38.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1111,7 +1088,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
 
 [[package]]
-
 name = "signal-hook"
 version = "0.3.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1209,7 +1185,6 @@ name = "typed-builder"
 version = "0.21.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ce63bcaf7e9806c206f7d7b9c1f38e0dce8bb165a80af0898161058b19248534"
-
 dependencies = [
  "typed-builder-macro",
 ]
@@ -1219,7 +1194,6 @@ name = "typed-builder-macro"
 version = "0.21.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "60d8d828da2a3d759d3519cdf29a5bac49c77d039ad36d0782edadbf9cd5415b"
-
 dependencies = [
  "proc-macro2",
  "quote",

@@ -17,9 +17,4 @@ libafl_targets =  {version = "0.15.2", features = [
 libafl_bolts = {version = "0.15.2", features = ["prelude"]}
 
 [profile.release]
-debug = true
-lto = true
 codegen-units = 1
-opt-level = 3
-debug-assertions = true
-
