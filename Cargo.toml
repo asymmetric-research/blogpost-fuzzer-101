@@ -5,12 +5,21 @@ name = "blogpost-fuzzer-101"
 version = "0.1.0"
 edition = "2024"
 
-[[bin]]
-name = "scratch"
-path = "scratch/test.rs"
 
 [dependencies]
+serde_json = "1.0"
 json = "0.12.4"
-libafl = "0.15.1"
-libafl_bolts = "0.15.1"
-serde_json = "1.0.140"
+libafl =  {version = "0.15.2", features = ["prelude"]}
+libafl_targets =  {version = "0.15.2", features = [
+     "sancov_pcguard_edges",
+    # "sancov_pcguard_hitcounts"
+    ]}
+libafl_bolts = {version = "0.15.2", features = ["prelude"]}
+
+[profile.release]
+debug = true
+lto = true
+codegen-units = 1
+opt-level = 3
+debug-assertions = true
+

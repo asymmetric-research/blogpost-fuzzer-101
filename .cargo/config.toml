@@ -1,0 +1,30 @@
+[build]
+rustflags = []
+
+[target.'cfg(target_os = "macos")']
+linker = "/opt/homebrew/opt/llvm@16/bin/clang"
+rustflags = [
+   "-Cpasses=sancov-module",
+    "-Cllvm-args=-sanitizer-coverage-level=4",
+    "-Cllvm-args=-sanitizer-coverage-trace-pc-guard",
+    "-Cllvm-args=-sanitizer-coverage-inline-8bit-counters",
+    "-Cinstrument-coverage",
+    "-Ccodegen-units=1",
+    "-Clink-dead-code",
+    "-Cllvm-args=-sanitizer-coverage-trace-compares",
+    "-Cforce-frame-pointers=yes",
+    "-Ctarget-feature=-crt-static",
+]
+
+
+[target.x86_64-unknown-linux-gnu]
+linker = "/usr/bin/clang-18"
+rustflags = ["-Cpasses=sancov-module",
+"-Cllvm-args=-sanitizer-coverage-level=3",
+"-Cllvm-args=-sanitizer-coverage-trace-pc-guard",
+"-Clink-arg=-fsanitize-coverage=trace-pc-guard",    
+"-Clink-dead-code",
+"-C", "link-arg=--ld-path=/usr/bin/ld.lld-18"
+]
+
+
