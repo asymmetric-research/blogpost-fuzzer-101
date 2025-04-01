@@ -1,3 +1,5 @@
+cargo-features = ["edition2024"]
+
 [package]
 name = "blogpost-fuzzer-101"
 version = "0.1.0"
@@ -20,3 +22,4 @@ lto = true
 codegen-units = 1
 opt-level = 3
 debug-assertions = true
+
