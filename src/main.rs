@@ -14,8 +14,8 @@ use libafl::{
 };
 
 use libafl_targets::coverage::EDGES_MAP;
+use libafl_targets::sancov_pcguard;
 
-// sancov_edges_map!(65536);
 
 fn main() {
     let mon = MultiMonitor::new(|s| println!("{s}"));

@@ -23,7 +23,8 @@ rustflags = ["-Cpasses=sancov-module",
 "-Cllvm-args=-sanitizer-coverage-level=3",
 "-Cllvm-args=-sanitizer-coverage-trace-pc-guard",
 "-Clink-arg=-fsanitize-coverage=trace-pc-guard",    
-"-C", "link-arg=--ld-path=/usr/bin/mold"
+"-Clink-dead-code",
+"-C", "link-arg=--ld-path=/usr/bin/ld.lld-18"
 ]
 
 
