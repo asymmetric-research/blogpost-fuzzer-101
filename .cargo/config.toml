@@ -1,0 +1,14 @@
+[build]
+rustflags = ["-C", "passes=sancov", "-C", "llvm-args=-sanitizer-coverage-level=3", "-C", "llvm-args=-sanitizer-coverage-trace-pc-guard"]
+
+
+[target.'cfg(target_os = "macos")']
+rustflags = ["-C", "passes=sancov", "-C", "llvm-args=-sanitizer-coverage-level=3", "-C", "llvm-args=-sanitizer-coverage-trace-pc-guard"]
+
+
+[target.'cfg(target_os = "linux")']
+rustflags = [
+    "-Cinstrument-coverage",
+    "-Ccodegen-units=1",
+    "-Clink-arg=-fsanitize-coverage=trace-pc-guard,trace-cmp,trace-div,trace-gep",
+]

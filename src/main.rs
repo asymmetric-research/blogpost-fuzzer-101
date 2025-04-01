@@ -5,30 +5,32 @@ use std::path::PathBuf;
 use libafl_bolts::tuples::tuple_list;
 use serde_json;
 use json;
-
 use libafl::{
-    corpus::{CachedOnDiskCorpus, Corpus, OnDiskCorpus}, events::SimpleEventManager, executors::{inprocess::InProcessExecutor, ExitKind}, feedback_or, feedback_or_fast, feedbacks::{CrashFeedback, MaxMapFeedback, TimeFeedback, TimeoutFeedback}, fuzzer::{Fuzzer, StdFuzzer}, inputs::{BytesInput, HasTargetBytes}, monitors::SimpleMonitor, mutators::{havoc_mutations, StdScheduledMutator}, observers::{HitcountsMapObserver, StdMapObserver, TimeObserver}, schedulers::QueueScheduler, stages::mutational::StdMutationalStage, state::{HasCorpus, StdState}
+    corpus::{CachedOnDiskCorpus, Corpus, OnDiskCorpus}, events::SimpleEventManager, executors::{inprocess::InProcessExecutor, ExitKind}, feedback_or, feedback_or_fast, feedbacks::{CrashFeedback, MaxMapFeedback, TimeFeedback, TimeoutFeedback}, fuzzer::{Fuzzer, StdFuzzer}, inputs::{BytesInput, HasTargetBytes}, monitors::{MultiMonitor, SimpleMonitor}, mutators::{havoc_mutations, StdScheduledMutator}, observers::{HitcountsMapObserver, StdMapObserver, TimeObserver}, prelude::CanTrack, schedulers::QueueScheduler, stages::mutational::StdMutationalStage, state::{HasCorpus, StdState}
 };
 
 use libafl_targets::coverage::EDGES_MAP;
+use libafl_targets::sancov_pcguard;
+
+sancov_edges_map!(65536);
 
 fn main() {
-    let mon = SimpleMonitor::new(|s| println!("{s}"));
+    let mon = MultiMonitor::new(|s| println!("{s}"));
     let mut mgr = SimpleEventManager::new(mon);
-    
-    let edges_observer = 
+    let edges_observer =
         HitcountsMapObserver::new(unsafe { StdMapObserver::new("edges", &mut EDGES_MAP) });
 
     let time_observer = TimeObserver::new("time");
 
+    let map_feedback = MaxMapFeedback::new(&edges_observer);
     let mut feedback = feedback_or!(
-        MaxMapFeedback::new(&edges_observer),
+        map_feedback,
         TimeFeedback::new(&time_observer)
     );
 
-    let mut objective = 
+    let mut objective =
         feedback_or_fast!(CrashFeedback::new(), TimeoutFeedback::new());
-    
+
     let mut state = StdState::new(
         libafl_bolts::rands::StdRand::with_seed(0),
         CachedOnDiskCorpus::<BytesInput>::new("./corpus", 1024).unwrap(),
@@ -46,9 +48,9 @@ fn main() {
         let input_bytes = input.target_bytes();
         if let Ok(input_str) = str::from_utf8(&input_bytes) {
             let serde_json_parsed: Result<serde_json::Value, serde_json::Error> = serde_json::from_str(input_str);
-    
+
             let json_parsed = json::parse(input_str);
-    
+
             if serde_json_parsed.is_ok() != json_parsed.is_ok() {
                 eprintln!("mismatch on return type:\n{:?}\n{:?}", serde_json_parsed, json_parsed);
                 return ExitKind::Crash;
@@ -56,12 +58,8 @@ fn main() {
 
             // TODO: add state diffing
         }
-        
-        unsafe {
-            if EDGES_MAP.iter().find(|&v| *v > 0).is_some() {
-                println!("Found a new edge!");
-            }
-        }
+
+
         ExitKind::Ok
     };
 
@@ -139,4 +137,4 @@ mod tests {
         }
     }
     }
-} 
+}
