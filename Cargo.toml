@@ -1,9 +1,16 @@
 cargo-features = ["edition2024"]
+
 [package]
 name = "blogpost-fuzzer-101"
 version = "0.1.0"
 edition = "2024"
 
+[[bin]]
+name = "scratch"
+path = "scratch/test.rs"
+
 [dependencies]
+json = "0.12.4"
 libafl = "0.15.1"
 libafl_bolts = "0.15.1"
+serde_json = "1.0.140"
