@@ -1,6 +1,9 @@
+cargo-features = ["edition2024"]
 [package]
 name = "blogpost-fuzzer-101"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+libafl = "0.15.1"
+libafl_bolts = "0.15.1"
