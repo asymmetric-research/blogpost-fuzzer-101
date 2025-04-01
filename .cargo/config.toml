@@ -1,10 +1,20 @@
 [build]
-rustflags = ["-C", "passes=sancov", "-C", "llvm-args=-sanitizer-coverage-level=3", "-C", "llvm-args=-sanitizer-coverage-trace-pc-guard"]
-
+rustflags = []
 
 [target.'cfg(target_os = "macos")']
-rustflags = ["-C", "passes=sancov", "-C", "llvm-args=-sanitizer-coverage-level=3", "-C", "llvm-args=-sanitizer-coverage-trace-pc-guard"]
-
+linker = "/opt/homebrew/opt/llvm@16/bin/clang"
+rustflags = [
+   "-Cpasses=sancov-module",
+    "-Cllvm-args=-sanitizer-coverage-level=4",
+    "-Cllvm-args=-sanitizer-coverage-trace-pc-guard",
+    "-Cllvm-args=-sanitizer-coverage-inline-8bit-counters",
+    "-Cinstrument-coverage",
+    "-Ccodegen-units=1",
+    "-Clink-dead-code",
+    "-Cllvm-args=-sanitizer-coverage-trace-compares",
+    "-Cforce-frame-pointers=yes",
+    "-Ctarget-feature=-crt-static",
+]
 
 [target.'cfg(target_os = "linux")']
 rustflags = [

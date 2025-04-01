@@ -6,13 +6,16 @@ use libafl_bolts::tuples::tuple_list;
 use serde_json;
 use json;
 use libafl::{
-    corpus::{CachedOnDiskCorpus, Corpus, OnDiskCorpus}, events::SimpleEventManager, executors::{inprocess::InProcessExecutor, ExitKind}, feedback_or, feedback_or_fast, feedbacks::{CrashFeedback, MaxMapFeedback, TimeFeedback, TimeoutFeedback}, fuzzer::{Fuzzer, StdFuzzer}, inputs::{BytesInput, HasTargetBytes}, monitors::{MultiMonitor, SimpleMonitor}, mutators::{havoc_mutations, StdScheduledMutator}, observers::{HitcountsMapObserver, StdMapObserver, TimeObserver}, prelude::CanTrack, schedulers::QueueScheduler, stages::mutational::StdMutationalStage, state::{HasCorpus, StdState}
+    corpus::{CachedOnDiskCorpus, Corpus, OnDiskCorpus},
+    events::SimpleEventManager,
+    executors::{inprocess::InProcessExecutor, ExitKind},
+    feedback_or, feedback_or_fast,
+    feedbacks::{CrashFeedback, MaxMapFeedback, TimeFeedback, TimeoutFeedback, AflMapFeedback}, fuzzer::{Fuzzer, StdFuzzer}, inputs::{BytesInput, HasTargetBytes}, monitors::{MultiMonitor, SimpleMonitor}, mutators::{havoc_mutations, StdScheduledMutator}, observers::{HitcountsMapObserver, StdMapObserver, TimeObserver}, prelude::CanTrack, schedulers::QueueScheduler, stages::mutational::StdMutationalStage, state::{HasCorpus, StdState}
 };
 
 use libafl_targets::coverage::EDGES_MAP;
-use libafl_targets::sancov_pcguard;
 
-sancov_edges_map!(65536);
+// sancov_edges_map!(65536);
 
 fn main() {
     let mon = MultiMonitor::new(|s| println!("{s}"));
@@ -22,7 +25,7 @@ fn main() {
 
     let time_observer = TimeObserver::new("time");
 
-    let map_feedback = MaxMapFeedback::new(&edges_observer);
+    let map_feedback = AflMapFeedback::new(&edges_observer);
     let mut feedback = feedback_or!(
         map_feedback,
         TimeFeedback::new(&time_observer)
