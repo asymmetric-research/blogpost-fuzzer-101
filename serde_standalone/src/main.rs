@@ -10,7 +10,7 @@ use libafl::{
     feedbacks::{AflMapFeedback, CrashFeedback, TimeFeedback, TimeoutFeedback},
     fuzzer::{Fuzzer, StdFuzzer},
     inputs::{BytesInput, HasTargetBytes},
-    monitors::MultiMonitor,
+    monitors::{MultiMonitor, TuiMonitor, SimpleMonitor},
     mutators::{havoc_mutations, StdScheduledMutator},
     observers::{HitcountsMapObserver, StdMapObserver, TimeObserver},
     prelude::CanTrack,
@@ -24,7 +24,11 @@ use serde_json;
 use libafl_targets::coverage::EDGES_MAP;
 use libafl_targets::sancov_pcguard;
 fn main() {
-    let mon = MultiMonitor::new(|s| println!("{s}"));
+    let mon = SimpleMonitor::new(|s| println!("{s}"));
+    // let mon = TuiMonitor::builder()
+    // .title("Serde Standalone")
+    // .enhanced_graphics(true)
+    // .build();
     let mut mgr = SimpleEventManager::new(mon);
     let edges_observer =
         HitcountsMapObserver::new(unsafe { StdMapObserver::new("edges", &mut EDGES_MAP) });
@@ -38,8 +42,8 @@ fn main() {
 
     let mut state = StdState::new(
         libafl_bolts::rands::StdRand::with_seed(0),
-        CachedOnDiskCorpus::<BytesInput>::new("./corpus", 1024).unwrap(),
-        OnDiskCorpus::new(PathBuf::from("./crashes")).unwrap(),
+        CachedOnDiskCorpus::<BytesInput>::new("/tmp/corpus", 1024).unwrap(),
+        OnDiskCorpus::new(PathBuf::from("/tmp/crashes")).unwrap(),
         &mut feedback,
         &mut objective,
     )
@@ -65,7 +69,7 @@ fn main() {
                     // Check if the round-trip value matches the original parsed value
                     if let Ok(round_trip_value) = round_trip {
                         if round_trip_value != parsed_value {
-                            eprintln!("Failed roundtrip: {}\n{}\n",round_trip_value, parsed_value);
+                            // eprintln!("Failed roundtrip: {}\n{}\n",round_trip_value, parsed_value);
                             return ExitKind::Crash;
                         }
                     }
