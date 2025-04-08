@@ -24,7 +24,7 @@ use serde_json;
 use libafl_targets::coverage::EDGES_MAP;
 use libafl_targets::sancov_pcguard;
 fn main() {
-    let mon = SimpleMonitor::new(|s| println!("{s}"));
+    let mon = MultiMonitor::new(|s| println!("{s}"));
     // let mon = TuiMonitor::builder()
     // .title("Serde Standalone")
     // .enhanced_graphics(true)
