@@ -69,7 +69,7 @@ fn main() {
                     // Check if the round-trip value matches the original parsed value
                     if let Ok(round_trip_value) = round_trip {
                         if round_trip_value != parsed_value {
-                            // eprintln!("Failed roundtrip: {}\n{}\n",round_trip_value, parsed_value);
+                                eprintln!("Failed roundtrip: {}\n{}\n",round_trip_value, parsed_value);
                             return ExitKind::Crash;
                         }
                     }
