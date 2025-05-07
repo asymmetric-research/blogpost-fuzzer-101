@@ -1,5 +1,5 @@
 [package]
-name = "serde-standalone"
+name = "json-diff"
 version = "0.1.0"
 edition = "2024"
 
@@ -10,3 +10,4 @@ libafl_targets =  {workspace = true, features = [
      "sancov_pcguard_edges",
     ]}
 libafl_bolts = {workspace = true, features = ["prelude"]}
+json = {workspace = true}

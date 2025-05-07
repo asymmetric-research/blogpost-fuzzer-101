@@ -1,12 +1,8 @@
-cargo-features = ["edition2024"]
+[workspace]
+members = ["json_diff", "serde_standalone"]
+resolver = "3"
 
-[package]
-name = "blogpost-fuzzer-101"
-version = "0.1.0"
-edition = "2024"
-
-
-[dependencies]
+[workspace.dependencies]
 serde_json = "1.0"
 json = "0.12.4"
 libafl =  {version = "0.15.2", features = ["prelude"]}

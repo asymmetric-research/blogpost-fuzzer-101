@@ -1,7 +1,6 @@
 #![allow(static_mut_refs)]
-#![feature(inherent_str_constructors)]
 
-use std::path::PathBuf;
+use std::{env, path::PathBuf};
 
 use libafl_bolts::tuples::tuple_list;
 use serde_json;
@@ -11,14 +10,21 @@ use libafl::{
     events::SimpleEventManager,
     executors::{inprocess::InProcessExecutor, ExitKind},
     feedback_or, feedback_or_fast,
-    feedbacks::{CrashFeedback, MaxMapFeedback, TimeFeedback, TimeoutFeedback, AflMapFeedback}, fuzzer::{Fuzzer, StdFuzzer}, inputs::{BytesInput, HasTargetBytes}, monitors::{MultiMonitor, SimpleMonitor}, mutators::{havoc_mutations, StdScheduledMutator}, observers::{HitcountsMapObserver, StdMapObserver, TimeObserver}, prelude::CanTrack, schedulers::QueueScheduler, stages::mutational::StdMutationalStage, state::{HasCorpus, StdState}
+    feedbacks::{CrashFeedback, TimeFeedback, TimeoutFeedback, AflMapFeedback},
+    fuzzer::{Fuzzer, StdFuzzer}, inputs::{BytesInput, HasTargetBytes},
+    monitors::MultiMonitor, mutators::{havoc_mutations, StdScheduledMutator},
+    observers::{HitcountsMapObserver, StdMapObserver, TimeObserver},
+    schedulers::QueueScheduler, stages::mutational::StdMutationalStage, state::{HasCorpus, StdState}
 };
 
 use libafl_targets::coverage::EDGES_MAP;
 use libafl_targets::sancov_pcguard;
 
-
 fn main() {
+    let args: Vec<String> = env::args().collect();
+    let cwd = env::current_dir().unwrap();
+    println!("{:#?}", args);
+    println!("{:#?}",cwd);
     let mon = MultiMonitor::new(|s| println!("{s}"));
     let mut mgr = SimpleEventManager::new(mon);
     let edges_observer =
@@ -37,7 +43,7 @@ fn main() {
 
     let mut state = StdState::new(
         libafl_bolts::rands::StdRand::with_seed(0),
-        CachedOnDiskCorpus::<BytesInput>::new("./corpus", 1024).unwrap(),
+        CachedOnDiskCorpus::<BytesInput>::new("/tmp/corpus", 1024).unwrap(),
         OnDiskCorpus::new(PathBuf::from("./crashes")).unwrap(),
         &mut feedback,
         &mut objective,
@@ -79,16 +85,16 @@ fn main() {
     let mut stages = tuple_list!(StdMutationalStage::new(mutator));
 
     if state.corpus().count() < 1 {
+        println!("Trying to load inputs from {:?}", cwd.join(&args[1]));
         state
-            .load_initial_inputs_forced(
+            .load_initial_inputs(
                 &mut fuzzer,
                 &mut executor,
                 &mut mgr,
-                &["./corpus".into()],
+                &[cwd.join(&args[1])],
             )
             .unwrap();
     }
-
     println!("Starting fuzzing loop...");
     fuzzer.fuzz_loop(&mut stages, &mut executor, &mut state, &mut mgr).unwrap();
 
