@@ -62,6 +62,12 @@ fn main() {
             let json_parsed = json::parse(input_str);
 
             if serde_json_parsed.is_ok() != json_parsed.is_ok() {
+                // account for big numbers that serde_json rejects
+                if let Err(ref e) = serde_json_parsed {
+                    if e.to_string().contains("number out of range") {
+                        return ExitKind::Ok
+                    }
+                }
                 eprintln!("mismatch on return type:\n{:?}\n{:?}", serde_json_parsed, json_parsed);
                 return ExitKind::Crash;
             }
@@ -95,6 +101,7 @@ fn main() {
             )
             .unwrap();
     }
+    println!("working corpus will be in /tmp/corpus");
     println!("Starting fuzzing loop...");
     fuzzer.fuzz_loop(&mut stages, &mut executor, &mut state, &mut mgr).unwrap();
 
