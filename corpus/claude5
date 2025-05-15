@@ -1,0 +1,12 @@
+{
+  "escaped_json_string": "{\"nested\": \"json\", \"as\": \"string\"}",
+  "url_with_query_params": "https://example.com/path?param1=value1&param2=value2",
+  "regex_pattern_string": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+  "complex_object": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "patternProperties": {
+      "^[a-z]+$": {"type": "string"}
+    }
+  }
+}

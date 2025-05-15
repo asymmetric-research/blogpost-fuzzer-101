@@ -1,0 +1,17 @@
+{
+  "large_numbers": [
+    9007199254740991,
+    -9007199254740991,
+    1.7976931348623157e+308,
+    5e-324
+  ],
+  "special_strings": [
+    "",
+    "\\",
+    "\"quoted\"",
+    "\u0000",
+    "\t\r\n\b\f",
+    "control \u001F chars"
+  ],
+  "key with spaces": "this is valid JSON"
+}

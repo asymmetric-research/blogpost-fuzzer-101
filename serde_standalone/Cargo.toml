@@ -1,0 +1,12 @@
+[package]
+name = "serde-standalone"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde_json = {workspace = true, features = ["float_roundtrip"]}
+libafl =  {workspace = true, features = ["prelude"]}
+libafl_targets =  {workspace = true, features = [
+     "sancov_pcguard_edges",
+    ]}
+libafl_bolts = {workspace = true, features = ["prelude"]}

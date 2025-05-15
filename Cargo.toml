@@ -1,0 +1,16 @@
+[workspace]
+members = ["json_diff", "serde_standalone"]
+resolver = "3"
+
+[workspace.dependencies]
+serde_json = "1.0"
+json = "0.12.4"
+libafl =  {version = "0.15.2", features = ["prelude"]}
+libafl_targets =  {version = "0.15.2", features = [
+     "sancov_pcguard_edges",
+    # "sancov_pcguard_hitcounts"
+    ]}
+libafl_bolts = {version = "0.15.2", features = ["prelude"]}
+
+[profile.release]
+codegen-units = 1

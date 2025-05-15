@@ -1,0 +1,15 @@
+{
+  "mixed_types_array": [1, "string", null, true, {"object": "value"}, [1, 2, 3]],
+  "recursive_structure": {
+    "properties": {
+      "recursive": {
+        "properties": {
+          "recursive": {
+            "properties": {}
+          }
+        }
+      }
+    }
+  },
+  "whitespace": "    leading and trailing spaces    "
+}

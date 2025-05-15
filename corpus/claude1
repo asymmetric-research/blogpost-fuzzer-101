@@ -1,0 +1,15 @@
+{
+  "deeply_nested": {
+    "level1": {
+      "level2": {
+        "level3": {
+          "level4": {
+            "level5": [null, 1, true, "string", {"surprise": "value"}]
+          }
+        }
+      }
+    }
+  },
+  "empty_containers": {"object": {}, "array": [], "nested": [{},[]]},
+  "unicode": "❤️ 👋 🌎 ñáéíóú 你好 こんにちは"
+}
